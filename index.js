@@ -1,5 +1,10 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
+const address = require('./address')
+const query = require('./query')
+const capital = require('./capital')
+const withdraw = require('./withdraw')
+const fund = require('./fund')
 const request = require('request')
 require('dotenv').config();
 const app = express();
@@ -28,8 +33,8 @@ app.get('/data', (req, res) => {
 
 
 const config = {
-    channelAccessToken: 'TbEv2xd8cmH6YZ+9FhI6IGgK9sq9iEFqSLGZzWUlhn7/9oYu8YlBI+JlTEFDho+7ai916qqzYFeSncTaIEFF2e6DHeBZsVqp7wIlTDGb2FBR+5TIxBgvhTestwRXMVM7ZMUIC66VMWKAqTtlp368HwdB04t89/1O/w1cDnyilFU=',
-    channelSecret: '87aa2aa19807d50703ab7cc38f839695'
+    channelAccessToken: 'YkZGtrwVjbIvgZ43HG/pjYt4MVkSqR+AoJnIwA3I6KIN9rAn7rhfiyS/xBNPpBzLdsRv8TUMGUoJWtqkxJyjhYoGU5tnggnMS3FIb3LN2Y12+f8f6Mh+g7klJ5vlpMcsMM8HgWQZyoR9kEZY1sK8rwdB04t89/1O/w1cDnyilFU=',
+    channelSecret: '8c20af89ebb7d39abac37ac9c5d5055b'
 };
 
 const client = new line.Client(config);
@@ -59,8 +64,59 @@ function handleMessageEvent(event) {
 
     let eventText = event.message.text.toLowerCase();
 
-    
-    if (eventText === 'report') {
+    if (eventText === 'ขอที่อยู่') {
+        msg = {
+            'type': 'text',
+            text: address.MSG
+        }
+    } else if (eventText === 'สอบถาม') {
+        // console.dir();
+        msg = {
+            'type': 'text',
+            text: query.MSG
+        }
+    }  else if (eventText === 'สอบถามหน่อยครับ') {
+        msg = {
+            'type': 'text',
+            text: query.MSG
+
+        }
+    } else if (eventText === 'สอบถามหน่อยค่ะ') {
+        msg = {
+            'type': 'text',
+            text: query.MSG
+
+        }
+    } else if (eventText === 'ถามไรหน่อย') {
+        msg = {
+            'type': 'text',
+            text: query.MSG
+
+        }
+    } else if (eventText === 'สวัสดีครับ') {
+        msg = {
+            'type': 'text',
+            text: query.MSG
+        }
+    } else if (eventText === 'สวัสดีค่ะ') {
+        msg = {
+            'type': 'text',
+            text: query.MSG
+
+        }
+    } else if (eventText === 'สวัสดี') {
+        msg = {
+            'type': 'text',
+            text: query.MSG
+        }
+    } else if (eventText === 'หวัดดี') {
+        msg = {
+            'type': 'text',
+            text: query.MSG
+
+        }
+    }
+    else if (eventText === 'report') {
 
 
         db.all("SELECT * FROM question", [], (err, row) => {
@@ -75,10 +131,10 @@ function handleMessageEvent(event) {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             auth: {
-                bearer: 'WWfQVqxh4p9lb6q97aDEk3p5HgxGIeBFjQUyiuto7SK', //token
+                bearer: 'cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX', //token
             },
             form: {
-                message: this is eventext=${data.id}, //ข้อความที่จะส่ง
+                message: `this is eventext=${data.id}`, //ข้อความที่จะส่ง
             },
         }, (err, httpResponse, body) => {
             if (err) {
@@ -93,12 +149,90 @@ function handleMessageEvent(event) {
             'text':data.id
         }
         
+    } else if (eventText === 'ทุนวิจัย') {
+        msg = {
+            'type': 'text',
+            text: capital.MSG
+
+        }
+    } else if (eventText === 'ขอรายละเอียดทุนวิจัย') {
+        msg = {
+            'type': 'text',
+            text: capital.MSG1
+
+        }
+    } else if (eventText === 'ทุนวิจัย2564') {
+        msg = {
+            'type': 'text',
+            text: capital.MSG2
+
+        }
+    } else if (eventText === 'ทุนวิจัย2563') {
+        msg = {
+            'type': 'text',
+            text: capital.MSG3
+
+        }
+    } else if (eventText === 'เบิกเงินวิจัย') {
+        msg = {
+            'type': 'text',
+            text: withdraw.MSG
+        }
+    } else if (eventText === 'ขอรายละเอียดเบิกเงินวิจัย') {
+        msg = {
+            'type': 'text',
+            text: withdraw.MSG1
+
+        }
+    } else if (eventText === 'เบิกเงินงวดที่1') {
+        msg = {
+            'type': 'text',
+            text: withdraw.MSG2
+
+        }
+    } else if (eventText === 'เบิกเงินงวดที่2') {
+        msg = {
+            'type': 'text',
+            text: withdraw.MSG3
+
+        }
+    } else if (eventText === 'เบิกเงินงวดที่3') {
+        msg = {
+            'type': 'text',
+            text: withdraw.MSG4
+
+        }
+    } else if (eventText === 'กองทุนสนับสนุนงานวิจัย') {
+        msg = {
+            'type': 'text',
+            text: fund.MSG
+
+        }
+    } else if (eventText === 'คุยกับบอท') {
+        msg = {
+            'type': 'text',
+            text: 'สวัสดีค่ะท่านสามารถสอบถามเกี่ยวกับ\n-ทุนวิจัย\n-เบิกเงินวิจัย\n-กองทุนสนับสนุนงานวิจัย\n-เอกสารดาวน์โหลด\n' +
+                'ท่านสามารถดูรายละเอียดโดยการพิมพ์ขอรายละเอียดแต่ละหัวข้อกับน้องบอทได้ เช่น ทุนวิจัย เป็นต้น'
+
+        }
+    } else if (eventText === 'สามารถติดต่อได้ทางไหนบ้าง') {
+        msg = {
+            'type': 'text',
+            text: 'สวัสดีค่ะท่านสามารถติดต่อ สถาบันวิจัยและพัฒนา มทร.รัตนโกสินทร์ ได้ตามช่องทางการติดต่อด้านล่างนี้\nFacebook : https://www.facebook.com/irdrmutr\nWebsite : https://ird.rmutr.ac.th\nEmail : ird.r@rmutr.ac.th , irdrmutr@hotmail.co.th\nสามารถติดต่อได้ที่ 02-441-6060 ต่อ 2420-2426'
+
+        }
+    } else if (eventText === 'เอกสารดาวน์โหลด') {
+        msg = {
+            'type': 'text',
+            text: 'สวัสดีค่ะท่านสามารถดาวน์โหลดเอกสารต่างๆได้ในลิงค์ด้านล่างนี้\nhttps://ird.rmutr.ac.th/formdownload/ '
+
+        }
     }  
     else {
         
         msg = {
             type: 'text',
-            text: 'น้องบอทไม่เข้าใจที่คุณถามมา กรุณาเลือกใช้เมนูด้านล่างได้เลยครับ'
+            text: 'น้องบอทสามารถตอบคำถามเกี่ยวกับ\n-ทุนวิจัย\n-เบิกเงินวิจัย\n-กองทุนสนับสนุนงานวิจัย\n-เอกสารดาวน์โหลด'
         };
         if (eventText!== "hello, world" && eventText!== null) {
             db.all("INSERT INTO  question(question) VALUES(?)", [eventText], (err) => {
