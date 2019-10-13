@@ -28,8 +28,8 @@ app.get('/data', (req, res) => {
 
 
 const config = {
-    channelAccessToken: 'TbEv2xd8cmH6YZ+9FhI6IGgK9sq9iEFqSLGZzWUlhn7/9oYu8YlBI+JlTEFDho+7ai916qqzYFeSncTaIEFF2e6DHeBZsVqp7wIlTDGb2FBR+5TIxBgvhTestwRXMVM7ZMUIC66VMWKAqTtlp368HwdB04t89/1O/w1cDnyilFU=',
-    channelSecret: '87aa2aa19807d50703ab7cc38f839695'
+    channelAccessToken: 'YkZGtrwVjbIvgZ43HG/pjYt4MVkSqR+AoJnIwA3I6KIN9rAn7rhfiyS/xBNPpBzLdsRv8TUMGUoJWtqkxJyjhYoGU5tnggnMS3FIb3LN2Y12+f8f6Mh+g7klJ5vlpMcsMM8HgWQZyoR9kEZY1sK8rwdB04t89/1O/w1cDnyilFU=',
+    channelSecret: '8c20af89ebb7d39abac37ac9c5d5055b'
 };
 
 const client = new line.Client(config);
