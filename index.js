@@ -250,10 +250,10 @@ function handleMessageEvent(event) {
               //  clientDB.end();
             });
           }
-      
+          return client.replyMessage(event.replyToken, msg);
     }
 
-    return client.replyMessage(event.replyToken, msg);
+    
 }
 
 app.set('port', (process.env.PORT || 5000));
