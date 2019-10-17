@@ -3,22 +3,30 @@ const line = require('@line/bot-sdk');
 const request = require('request')
 require('dotenv').config();
 const app = express();
+const {clienDB} = require("./connect");
 // console.log(MSG.data1)
 //console.log(address.MSG);
 
 const data = {
-    id: null
-}
-app.get('/data', (req, res) => {
-    db.all("SELECT * FROM question", [], (err, row) => {
-        // console.dir(row);
-        data.id = JSON.stringify(row)
-        row.map((item) => { console.dir(item) })
-    });
-    res.setHeader('Content-Type', 'application/json');
-  res.send(data.id)
-})
-
+    id: null,
+    del:null
+};
+const IDB = "INSERT INTO question (question) VALUES ($1)";
+const SDB = "select * from question";
+clientDB.connect();
+app.get("/data", (req, res) => {
+  let result = [];
+  clientDB.query(SDB, (err, resDB) => {
+    result.push(resDB.rows);
+    data.id = JSON.stringify(resDB.rows);
+    if (err) throw err;
+    for (let row of resDB.rows) {
+      console.log(JSON.stringify(row));
+    }
+    res.status(200).json(result)
+    console.log(`this is = ${result}`);
+  });
+});
 
 
 
@@ -225,12 +233,16 @@ function handleMessageEvent(event) {
             type: 'text',
             text: 'ขอบคุณที่ใช้บริการตึกบริหารธุรกิจ นะครับ'
         };
-        if (eventText!== "hello, world" && eventText!== null) {
-            db.all("INSERT INTO  question(question) VALUES(?)", [eventText], (err) => {
-                if(err) console.dir(err.message);
-    
+        if (eventText !== "hello, world" && eventText !== null) {
+            //   clientDB.connect();
+            clientDB.query(IDB, [eventText], (err, resDB) => {
+              if (err) throw err;
+              for (let row of resDB.rows) {
+                console.log(JSON.stringify(row));
+              }
+              //  clientDB.end();
             });
-        }
+          }
       
     }
 
