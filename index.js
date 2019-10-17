@@ -3,7 +3,7 @@ const line = require('@line/bot-sdk');
 const request = require('request')
 require('dotenv').config();
 const app = express();
-const {clienDB} = require("./connect");
+const { clienDB } = require("./connect");
 // console.log(MSG.data1)
 //console.log(address.MSG);
 
@@ -118,11 +118,18 @@ function handleMessageEvent(event) {
     else if (eventText === 'report') {
 
 
-        db.all("SELECT * FROM question", [], (err, row) => {
-            // console.dir(row);
-            data.id = JSON.stringify(row)
-            // row.map((item) => { console.dir(item) })
-        });
+        let result = []
+        clientDB.query(SDB,(err, resDB) => {
+           
+           
+           if (err) throw err;
+           for (let row of resDB.rows) {
+            result.push(row)
+             console.log(JSON.stringify(row));
+           }
+           data.id=JSON.stringify(result)
+           console.log(`this is = ${result}`);
+         });
         request({
             method: 'POST',
             uri: 'https://notify-api.line.me/api/notify',
@@ -145,7 +152,7 @@ function handleMessageEvent(event) {
 
         msg={
             'type':'text',
-            'text':data.id
+            'text': data.id
         }
         
     } else if (eventText === 'ทุนวิจัย') {
