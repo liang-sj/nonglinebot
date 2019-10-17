@@ -9,23 +9,23 @@ const { clientDB } = require("./connect");
 
 const data = {
     id: null,
-    del:null
+    del: null
 };
 const IDB = "INSERT INTO question (question) VALUES ($1)";
 const SDB = "select * from question";
 clientDB.connect();
 app.get("/data", (req, res) => {
-  let result = [];
-  clientDB.query(SDB, (err, resDB) => {
-    result.push(resDB.rows);
-    data.id = JSON.stringify(resDB.rows);
-    if (err) throw err;
-    for (let row of resDB.rows) {
-      console.log(JSON.stringify(row));
-    }
-    res.status(200).json(result)
-    console.log(`this is = ${result}`);
-  });
+    let result = [];
+    clientDB.query(SDB, (err, resDB) => {
+        result.push(resDB.rows);
+        data.id = JSON.stringify(resDB.rows);
+        if (err) throw err;
+        for (let row of resDB.rows) {
+            console.log(JSON.stringify(row));
+        }
+        res.status(200).json(result)
+        console.log(`this is = ${result}`);
+    });
 });
 
 
@@ -64,151 +64,160 @@ async function handleMessageEvent(event) {
     let eventText = event.message.text.toLowerCase();
 
     if (eventText === 'ขอที่อยู่') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: address.MSG
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สอบถาม') {
         // console.dir();
-       let msg = {
+        let msg = {
             'type': 'text',
             text: query.MSG
         }
-    }  else if (eventText === 'สอบถามหน่อยครับ') {
-       let msg = {
+        return client.replyMessage(event.replyToken, msg);
+    } else if (eventText === 'สอบถามหน่อยครับ') {
+        let msg = {
             'type': 'text',
             text: query.MSG
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สอบถามหน่อยค่ะ') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: query.MSG
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'ถามไรหน่อย') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: query.MSG
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สวัสดีครับ') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: query.MSG
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สวัสดีค่ะ') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: query.MSG
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สวัสดี') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: query.MSG
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'หวัดดี') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: query.MSG
 
         }
-    }else if (eventText.replace(/\s+/g, '').slice(0,6)==="delete") { 
-   
+        return client.replyMessage(event.replyToken, msg);
+    } else if (eventText.replace(/\s+/g, '').slice(0, 6) === "delete") {
+
         let delparams = eventText.slice(6, eventText.length);
-      //  data.id=delparams
-        await clientDB.query("DELETE FROM question WHERE id=$1", [delparams],  (err, resDB)=>{
-                if (err) throw err;
-         else{
-            if (resDB.rowCount) {
-                  data.del="Delete success"
-                  let msg = {
-                   type: "text",
-                   text: data.del
-                 };
-                 request(
-                   {
-                     method: "POST",
-                     uri: "https://notify-api.line.me/api/notify",
-                     header: {
-                       "Content-Type": "application/x-www-form-urlencoded"
-                     },
-                     auth: {
-                       bearer: "cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX" //token
-                     },
-                     form: {
-                       message: `this is eventext=${data.del}` //ข้อความที่จะส่ง
-                     }
-                   },
-                   (err, httpResponse, body) => {
-                     if (err) {
-                       console.log(err);
-                     } else {
-                       console.log(body);
-                     }
-                   }
-                 );
-                  return client.replyMessage(event.replyToken, msg);
-             }
-            else{
-                 data.del="Delete error"
-                 let msg = {
-                   type: "text",
-                   text: data.del
-                 };
-                 request(
-                   {
-                     method: "POST",
-                     uri: "https://notify-api.line.me/api/notify",
-                     header: {
-                       "Content-Type": "application/x-www-form-urlencoded"
-                     },
-                     auth: {
-                       bearer: "cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX" //token
-                     },
-                     form: {
-                       message: `this is eventext=${data.del}` //ข้อความที่จะส่ง
-                     }
-                   },
-                   (err, httpResponse, body) => {
-                     if (err) {
-                       console.log(err);
-                     } else {
-                       console.log(body);
-                     }
-                   }
-                 );
-                  return client.replyMessage(event.replyToken, msg);    
-             }
-        } 
-          });
-        
-       
-          
-       }
+        //  data.id=delparams
+        await clientDB.query("DELETE FROM question WHERE id=$1", [delparams], (err, resDB) => {
+            if (err) throw err;
+            else {
+                if (resDB.rowCount) {
+                    data.del = "Delete success"
+                    let msg = {
+                        type: "text",
+                        text: data.del
+                    };
+                    request(
+                        {
+                            method: "POST",
+                            uri: "https://notify-api.line.me/api/notify",
+                            header: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            auth: {
+                                bearer: "cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX" //token
+                            },
+                            form: {
+                                message: `this is eventext=${data.del}` //ข้อความที่จะส่ง
+                            }
+                        },
+                        (err, httpResponse, body) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(body);
+                            }
+                        }
+                    );
+                    return client.replyMessage(event.replyToken, msg);
+                }
+                else {
+                    data.del = "Delete error"
+                    let msg = {
+                        type: "text",
+                        text: data.del
+                    };
+                    request(
+                        {
+                            method: "POST",
+                            uri: "https://notify-api.line.me/api/notify",
+                            header: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            auth: {
+                                bearer: "cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX" //token
+                            },
+                            form: {
+                                message: `this is eventext=${data.del}` //ข้อความที่จะส่ง
+                            }
+                        },
+                        (err, httpResponse, body) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(body);
+                            }
+                        }
+                    );
+                    return client.replyMessage(event.replyToken, msg);
+                }
+            }
+        });
+
+
+
+    }
 
 
     else if (eventText === 'report') {
 
 
         let result = []
-        clientDB.query(SDB,(err, resDB) => {
-           
-           
-           if (err) throw err;
-           for (let row of resDB.rows) {
-            result.push(row)
-             console.log(JSON.stringify(row));
-           }
-           data.id=JSON.stringify(result)
-           let  msg={
-            'type':'text',
-            'text': data.id
-        }
-           console.log(`this is = ${result}`);
-           return client.replyMessage(event.replyToken, msg);
-         });
+        clientDB.query(SDB, (err, resDB) => {
+
+
+            if (err) throw err;
+            for (let row of resDB.rows) {
+                result.push(row)
+                console.log(JSON.stringify(row));
+            }
+            data.id = JSON.stringify(result)
+            let msg = {
+                'type': 'text',
+                'text': data.id
+            }
+            console.log(`this is = ${result}`);
+            return client.replyMessage(event.replyToken, msg);
+        });
         request({
             method: 'POST',
             uri: 'https://notify-api.line.me/api/notify',
@@ -229,89 +238,96 @@ async function handleMessageEvent(event) {
             }
         })
 
-    
-        
+
+
     } else if (eventText === 'ทุนวิจัย') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: capital.MSG
 
         }
     } else if (eventText === 'ขอรายละเอียดทุนวิจัย') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: capital.MSG1
 
         }
     } else if (eventText === 'ทุนวิจัย2564') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: capital.MSG2
 
         }
     } else if (eventText === 'ทุนวิจัย2563') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: capital.MSG3
 
         }
     } else if (eventText === 'เบิกเงินวิจัย') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: withdraw.MSG
         }
     } else if (eventText === 'ขอรายละเอียดเบิกเงินวิจัย') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: withdraw.MSG1
 
         }
     } else if (eventText === 'เบิกเงินงวดที่1') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: withdraw.MSG2
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'เบิกเงินงวดที่2') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: withdraw.MSG3
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'เบิกเงินงวดที่3') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: withdraw.MSG4
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'กองทุนสนับสนุนงานวิจัย') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: fund.MSG
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'คุยกับบอท') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: 'สวัสดีค่ะท่านสามารถสอบถามเกี่ยวกับ\n-ทุนวิจัย\n-เบิกเงินวิจัย\n-กองทุนสนับสนุนงานวิจัย\n-เอกสารดาวน์โหลด\n' +
                 'ท่านสามารถดูรายละเอียดโดยการพิมพ์ขอรายละเอียดแต่ละหัวข้อกับน้องบอทได้ เช่น ทุนวิจัย เป็นต้น'
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สามารถติดต่อได้ทางไหนบ้าง') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: 'สวัสดีค่ะท่านสามารถติดต่อ สถาบันวิจัยและพัฒนา มทร.รัตนโกสินทร์ ได้ตามช่องทางการติดต่อด้านล่างนี้\nFacebook : https://www.facebook.com/irdrmutr\nWebsite : https://ird.rmutr.ac.th\nEmail : ird.r@rmutr.ac.th , irdrmutr@hotmail.co.th\nสามารถติดต่อได้ที่ 02-441-6060 ต่อ 2420-2426'
 
         }
+        return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'เอกสารดาวน์โหลด') {
-       let msg = {
+        let msg = {
             'type': 'text',
             text: 'สวัสดีค่ะท่านสามารถดาวน์โหลดเอกสารต่างๆได้ในลิงค์ด้านล่างนี้\nhttps://ird.rmutr.ac.th/formdownload/ '
 
         }
-    }  
+        return client.replyMessage(event.replyToken, msg);
+    }
     else {
-        
+
         msg = {
             type: 'text',
             text: 'ขอบคุณที่ใช้บริการตึกบริหารธุรกิจ นะครับ'
@@ -319,17 +335,17 @@ async function handleMessageEvent(event) {
         if (eventText !== "hello, world" && eventText !== null) {
             //   clientDB.connect();
             clientDB.query(IDB, [eventText], (err, resDB) => {
-              if (err) throw err;
-              for (let row of resDB.rows) {
-                console.log(JSON.stringify(row));
-              }
-              //  clientDB.end();
+                if (err) throw err;
+                for (let row of resDB.rows) {
+                    console.log(JSON.stringify(row));
+                }
+                //  clientDB.end();
             });
-          }
-          
+        }
+        return client.replyMessage(event.replyToken, msg);
     }
 
-    return client.replyMessage(event.replyToken, msg);
+
 }
 
 app.set('port', (process.env.PORT || 5000));
