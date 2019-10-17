@@ -9,36 +9,36 @@ const client = new Client({
 const  CTB = 'CREATE TABLE question(id SERIAL PRIMARY KEY,question VARCHAR NOT NULL);'
  const IDB = "INSERT INTO question (name) VALUES ($1)"
  
-client.query(CTB,(err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
+// client.query(CTB,(err, res) => {
+//   if (err) throw err;
+//   for (let row of res.rows) {
+//     console.log(JSON.stringify(row));
+//   }
+//   client.end();
+// });
 //  เปิดโค้ตตรงนี้เพื่อสร้าง database
 
-let createData=()=>{
-    client.connect();
-    client.query(CTB,(err, res) => {
-        if (err) throw err;
-        for (let row of res.rows) {
-          console.log(JSON.stringify(row));
-        }
-        client.end();
-      });
-}
+// let createData=()=>{
+//     client.connect();
+//     client.query(CTB,(err, res) => {
+//         if (err) throw err;
+//         for (let row of res.rows) {
+//           console.log(JSON.stringify(row));
+//         }
+//         client.end();
+//       });
+// }
 
-let addData=(params)=>{
-    client.connect();
-    client.query(IDB,[params],(err, res) => {
-        if (err) throw err;
-        for (let row of res.rows) {
-          console.log(JSON.stringify(row));
-        }
-        client.end();
-      });
-}
+// let addData=(params)=>{
+//     client.connect();
+//     client.query(IDB,[params],(err, res) => {
+//         if (err) throw err;
+//         for (let row of res.rows) {
+//           console.log(JSON.stringify(row));
+//         }
+//         client.end();
+//       });
+// }
 // let  getData=()=>{
 //     client.connect();
 //     let result = []
@@ -59,7 +59,7 @@ let addData=(params)=>{
     
       
 // }
-createData()
+// createData()
 module.exports= {
     clientDB:client
 }
