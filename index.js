@@ -227,7 +227,7 @@ function handleMessageEvent(event) {
         
         msg = {
             type: 'text',
-            text: 'น้องบอทสามารถตอบคำถามเกี่ยวกับ\n-ทุนวิจัย\n-เบิกเงินวิจัย\n-กองทุนสนับสนุนงานวิจัย\n-เอกสารดาวน์โหลด'
+            text: 'ขอบคุณที่ใช้บริการตึกบริหารธุรกิจ นะครับ'
         };
         if (eventText!== "hello, world" && eventText!== null) {
             db.all("INSERT INTO  question(question) VALUES(?)", [eventText], (err) => {
