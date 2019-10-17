@@ -54,12 +54,12 @@ function handleEvent(event) {
     }
 }
 
-function handleMessageEvent(event) {
+async function handleMessageEvent(event) {
 
-    let msg = {
-        type: 'text',
-        text: 'dffd'
-    };
+    // let msg = {
+    //     type: 'text',
+    //     text: 'dffd'
+    // };
 
     let eventText = event.message.text.toLowerCase();
 
@@ -114,7 +114,81 @@ function handleMessageEvent(event) {
             text: query.MSG
 
         }
-    }
+    }else if (eventText.replace(/\s+/g, '').slice(0,6)==="delete") { 
+   
+        let delparams = eventText.slice(6, eventText.length);
+      //  data.id=delparams
+        await clientDB.query("DELETE FROM question WHERE id=$1", [delparams],  (err, resDB)=>{
+                if (err) throw err;
+         else{
+            if (resDB.rowCount) {
+                  data.del="Delete success"
+                  let msg = {
+                   type: "text",
+                   text: data.del
+                 };
+                 request(
+                   {
+                     method: "POST",
+                     uri: "https://notify-api.line.me/api/notify",
+                     header: {
+                       "Content-Type": "application/x-www-form-urlencoded"
+                     },
+                     auth: {
+                       bearer: "cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX" //token
+                     },
+                     form: {
+                       message: `this is eventext=${data.del}` //ข้อความที่จะส่ง
+                     }
+                   },
+                   (err, httpResponse, body) => {
+                     if (err) {
+                       console.log(err);
+                     } else {
+                       console.log(body);
+                     }
+                   }
+                 );
+                  return client.replyMessage(event.replyToken, msg);
+             }
+            else{
+                 data.del="Delete error"
+                 let msg = {
+                   type: "text",
+                   text: data.del
+                 };
+                 request(
+                   {
+                     method: "POST",
+                     uri: "https://notify-api.line.me/api/notify",
+                     header: {
+                       "Content-Type": "application/x-www-form-urlencoded"
+                     },
+                     auth: {
+                       bearer: "cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX" //token
+                     },
+                     form: {
+                       message: `this is eventext=${data.del}` //ข้อความที่จะส่ง
+                     }
+                   },
+                   (err, httpResponse, body) => {
+                     if (err) {
+                       console.log(err);
+                     } else {
+                       console.log(body);
+                     }
+                   }
+                 );
+                  return client.replyMessage(event.replyToken, msg);    
+             }
+        } 
+          });
+        
+       
+          
+       }
+
+
     else if (eventText === 'report') {
 
 
