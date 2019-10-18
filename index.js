@@ -328,7 +328,7 @@ async function handleMessageEvent(event) {
     }
     else {
 
-        msg = {
+       let msg = {
             type: 'text',
             text: 'ขอบคุณที่ใช้บริการตึกบริหารธุรกิจ นะครับ'
         };
