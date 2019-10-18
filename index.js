@@ -240,63 +240,63 @@ async function handleMessageEvent(event) {
 
 
 
-    } else if (eventText === 'ทุนวิจัย') {
+    } else if (eventText === 'สารสนเทศ') {
         let msg = {
             'type': 'text',
             text: capital.MSG
 
         }
-    } else if (eventText === 'ขอรายละเอียดทุนวิจัย') {
+    } else if (eventText === 'c') {
         let msg = {
             'type': 'text',
             text: capital.MSG1
 
         }
-    } else if (eventText === 'ทุนวิจัย2564') {
+    } else if (eventText === 'อุปกรณ์') {
         let msg = {
             'type': 'text',
             text: capital.MSG2
 
         }
-    } else if (eventText === 'ทุนวิจัย2563') {
+    } else if (eventText === 'ตึกบริหาร') {
         let msg = {
             'type': 'text',
             text: capital.MSG3
 
         }
-    } else if (eventText === 'เบิกเงินวิจัย') {
+    } else if (eventText === 'เบิกอุปกรณ์') {
         let msg = {
             'type': 'text',
             text: withdraw.MSG
         }
-    } else if (eventText === 'ขอรายละเอียดเบิกเงินวิจัย') {
+    } else if (eventText === 'ห้องเรียน') {
         let msg = {
             'type': 'text',
             text: withdraw.MSG1
 
         }
-    } else if (eventText === 'เบิกเงินงวดที่1') {
+    } else if (eventText === 'แบบฟอร์ม') {
         let msg = {
             'type': 'text',
             text: withdraw.MSG2
 
         }
         return client.replyMessage(event.replyToken, msg);
-    } else if (eventText === 'เบิกเงินงวดที่2') {
+    } else if (eventText === 'แบบฟอร์ม2') {
         let msg = {
             'type': 'text',
             text: withdraw.MSG3
 
         }
         return client.replyMessage(event.replyToken, msg);
-    } else if (eventText === 'เบิกเงินงวดที่3') {
+    } else if (eventText === 'แบบฟอร์ม3') {
         let msg = {
             'type': 'text',
             text: withdraw.MSG4
 
         }
         return client.replyMessage(event.replyToken, msg);
-    } else if (eventText === 'กองทุนสนับสนุนงานวิจัย') {
+    } else if (eventText === 'กองสหกิจศึกษา') {
         let msg = {
             'type': 'text',
             text: fund.MSG
@@ -306,22 +306,22 @@ async function handleMessageEvent(event) {
     } else if (eventText === 'คุยกับบอท') {
         let msg = {
             'type': 'text',
-            text: 'สวัสดีค่ะท่านสามารถสอบถามเกี่ยวกับ\n-ทุนวิจัย\n-เบิกเงินวิจัย\n-กองทุนสนับสนุนงานวิจัย\n-เอกสารดาวน์โหลด\n' +
-                'ท่านสามารถดูรายละเอียดโดยการพิมพ์ขอรายละเอียดแต่ละหัวข้อกับน้องบอทได้ เช่น ทุนวิจัย เป็นต้น'
+            text: 'สวัสดีค่ะท่านสามารถสอบถามเกี่ยวกับ\n-ตึกบริหาร\n-เบิกอุปกรณ์\n-กองสหกิจศึกษา\n-เอกสารดาวน์โหลด\n' +
+                'ท่านสามารถดูรายละเอียดโดยการพิมพ์ขอรายละเอียดแต่ละหัวข้อกับน้องบอทได้ เช่น ตึกบริหาร เป็นต้น'
 
         }
         return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สามารถติดต่อได้ทางไหนบ้าง') {
         let msg = {
             'type': 'text',
-            text: 'สวัสดีค่ะท่านสามารถติดต่อ สถาบันวิจัยและพัฒนา มทร.รัตนโกสินทร์ ได้ตามช่องทางการติดต่อด้านล่างนี้\nFacebook : https://www.facebook.com/irdrmutr\nWebsite : https://ird.rmutr.ac.th\nEmail : ird.r@rmutr.ac.th , irdrmutr@hotmail.co.th\nสามารถติดต่อได้ที่ 02-441-6060 ต่อ 2420-2426'
+            text: 'สวัสดีค่ะท่านสามารถติดต่อ  มทร.รัตนโกสินทร์ '
 
         }
         return client.replyMessage(event.replyToken, msg);
-    } else if (eventText === 'เอกสารดาวน์โหลด') {
+    } else if (eventText === 'ยินดีต้อนรับ') {
         let msg = {
             'type': 'text',
-            text: 'สวัสดีค่ะท่านสามารถดาวน์โหลดเอกสารต่างๆได้ในลิงค์ด้านล่างนี้\nhttps://ird.rmutr.ac.th/formdownload/ '
+            text: 'สวัสดีค่ะทุกท่านที่ใช้บริการ '
 
         }
         return client.replyMessage(event.replyToken, msg);
