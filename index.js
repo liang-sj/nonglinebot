@@ -107,6 +107,7 @@ async function handleMessageEvent(event) {
         let msg = {
             'type': 'text',
             text: query.MSG
+
         }
         return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สวัสดี') {
@@ -341,9 +342,9 @@ async function handleMessageEvent(event) {
                 //  clientDB.end();
             });
         }
+        return client.replyMessage(event.replyToken, msg);
         
     }
-      return client.replyMessage(event.replyToken, msg);
 
 }
 
