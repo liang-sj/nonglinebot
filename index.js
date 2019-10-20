@@ -195,7 +195,7 @@ async function handleMessageEvent(event) {
         result.push(row);
         console.log(JSON.stringify(row));
       }
-      data.id = JSON.stringify(result);
+      data.id = JSON.stringify(result.length);
       console.log(`this is = ${result}`);
       request(
         {
