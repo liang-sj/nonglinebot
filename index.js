@@ -199,7 +199,10 @@ async function handleMessageEvent(event) {
 
 
     else if (eventText === 'report') {
-
+        let msg = {
+            'type': 'text',
+            'text': data.id
+        }
 
         let result = []
         clientDB.query(SDB, (err, resDB) => {
@@ -211,10 +214,7 @@ async function handleMessageEvent(event) {
                 console.log(JSON.stringify(row));
             }
             data.id = JSON.stringify(result)
-            let msg = {
-                'type': 'text',
-                'text': data.id
-            }
+          
             console.log(`this is = ${result}`);
             return client.replyMessage(event.replyToken, msg);
         });
