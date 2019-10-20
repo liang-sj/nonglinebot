@@ -66,7 +66,7 @@ function handleEvent(event) {
     if (eventText === 'ขอที่อยู่') {
         let msg = {
             'type': 'text',
-            text: address.MSG
+            text: "204"
         }
         return client.replyMessage(event.replyToken, msg);
     } else if (eventText === 'สอบถาม') {
