@@ -20,7 +20,7 @@ let DRB = 'DROP TABLE  question'
 
 // let createData=()=>{
 //     client.connect();
-//     client.query(DRB,(err, res) => {
+//     client.query(CTB,(err, res) => {
 //         if (err) throw err;
 //         for (let row of res.rows) {
 //           console.log(JSON.stringify(row));
