@@ -199,25 +199,26 @@ function handleEvent(event) {
 
 
     else if (eventText === 'report') {
-        let msg = {
-            'type': 'text',
-            'text': 'รายงาาน'
-        }
+      
 
-        // let result = []
-        // clientDB.query(SDB, (err, resDB) => {
+        let result = []
+        clientDB.query(SDB, (err, resDB) => {
 
 
-        //     if (err) throw err;
-        //     for (let row of resDB.rows) {
-        //         result.push(row)
-        //         console.log(JSON.stringify(row));
-        //     }
-        //     data.id = JSON.stringify(result)
-          
-        //     console.log(`this is = ${result}`);
+            if (err) throw err;
+            for (let row of resDB.rows) {
+                result.push(row)
+                console.log(JSON.stringify(row));
+            }
+            data.id = JSON.stringify(result)
+            let msg = {
+                'type': 'text',
+                'text': data.id
+            }
+            console.log(`this is = ${result}`);
+            return client.replyMessage(event.replyToken, msg);
            
-        // });
+        });
         // request({
         //     method: 'POST',
         //     uri: 'https://notify-api.line.me/api/notify',
@@ -238,7 +239,7 @@ function handleEvent(event) {
         //     }
         // })
 
-        return client.replyMessage(event.replyToken, msg);
+        
 
     } else if (eventText === 'ทุนวิจัย') {
         let msg = {
