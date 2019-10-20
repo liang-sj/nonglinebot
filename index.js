@@ -201,7 +201,7 @@ function handleEvent(event) {
     else if (eventText === 'report') {
         let msg = {
             'type': 'text',
-            'text': data.id
+            'text': 'รายงาาน'
         }
 
         // let result = []
