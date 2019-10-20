@@ -1,39 +1,37 @@
-const express = require('express');
-const line = require('@line/bot-sdk');
-const request = require('request')
-require('dotenv').config();
+const express = require("express");
+const line = require("@line/bot-sdk");
+const request = require("request");
+require("dotenv").config();
 const app = express();
 const { clientDB } = require("./connect");
 // console.log(MSG.data1)
 //console.log(address.MSG);
 
 const data = {
-    id: null,
-    del: null
+  id: null,
+  del: null
 };
 const IDB = "INSERT INTO question (question) VALUES ($1)";
 const SDB = "select * from question";
 clientDB.connect();
 app.get("/data", (req, res) => {
-    let result = [];
-    clientDB.query(SDB, (err, resDB) => {
-        result.push(resDB.rows);
-        data.id = JSON.stringify(resDB.rows);
-        if (err) throw err;
-        for (let row of resDB.rows) {
-            console.log(JSON.stringify(row));
-        }
-        res.status(200).json(result)
-        console.log(`this is = ${result}`);
-    });
+  let result = [];
+  clientDB.query(SDB, (err, resDB) => {
+    result.push(resDB.rows);
+    data.id = JSON.stringify(resDB.rows);
+    if (err) throw err;
+    for (let row of resDB.rows) {
+      console.log(JSON.stringify(row));
+    }
+    res.status(200).json(result);
+    console.log(`this is = ${result}`);
+  });
 });
 
-
-
-
 const config = {
-    channelAccessToken: 'YkZGtrwVjbIvgZ43HG/pjYt4MVkSqR+AoJnIwA3I6KIN9rAn7rhfiyS/xBNPpBzLdsRv8TUMGUoJWtqkxJyjhYoGU5tnggnMS3FIb3LN2Y12+f8f6Mh+g7klJ5vlpMcsMM8HgWQZyoR9kEZY1sK8rwdB04t89/1O/w1cDnyilFU=',
-    channelSecret: '8c20af89ebb7d39abac37ac9c5d5055b'
+  channelAccessToken:
+    "YkZGtrwVjbIvgZ43HG/pjYt4MVkSqR+AoJnIwA3I6KIN9rAn7rhfiyS/xBNPpBzLdsRv8TUMGUoJWtqkxJyjhYoGU5tnggnMS3FIb3LN2Y12+f8f6Mh+g7klJ5vlpMcsMM8HgWQZyoR9kEZY1sK8rwdB04t89/1O/w1cDnyilFU=",
+  channelSecret: "8c20af89ebb7d39abac37ac9c5d5055b"
 };
 
 const client = new line.Client(config);
