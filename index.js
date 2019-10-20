@@ -213,7 +213,7 @@ function handleEvent(event) {
             data.id = JSON.stringify(result)
             let msg = {
                 'type': 'text',
-                'text': `${data.id.length}`
+                'text': `${data.id}`
             }
             console.log(`this is = ${result}`);
             return client.replyMessage(event.replyToken, msg);
