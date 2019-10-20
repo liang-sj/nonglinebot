@@ -12,7 +12,7 @@ const data = {
     del: null
 };
 const IDB = "INSERT INTO question (question) VALUES ($1)";
-const SDB = "select * from question";
+const SDB = "select * from question order by id asc";
 clientDB.connect();
 app.get("/data", (req, res) => {
     let result = [];
