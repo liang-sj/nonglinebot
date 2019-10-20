@@ -54,7 +54,7 @@ function handleEvent(event) {
     }
 }
 
-async function handleMessageEvent(event) {
+ function handleMessageEvent(event) {
 
     // let msg = {
     //     type: 'text',
@@ -127,7 +127,7 @@ async function handleMessageEvent(event) {
 
         let delparams = eventText.slice(6, eventText.length);
         //  data.id=delparams
-        await clientDB.query("DELETE FROM question WHERE id=$1", [delparams], (err, resDB) => {
+         clientDB.query("DELETE FROM question WHERE id=$1", [delparams], (err, resDB) => {
             if (err) throw err;
             else {
                 if (resDB.rowCount) {
@@ -204,39 +204,39 @@ async function handleMessageEvent(event) {
             'text': data.id
         }
 
-        let result = []
-        clientDB.query(SDB, (err, resDB) => {
+        // let result = []
+        // clientDB.query(SDB, (err, resDB) => {
 
 
-            if (err) throw err;
-            for (let row of resDB.rows) {
-                result.push(row)
-                console.log(JSON.stringify(row));
-            }
-            data.id = JSON.stringify(result)
+        //     if (err) throw err;
+        //     for (let row of resDB.rows) {
+        //         result.push(row)
+        //         console.log(JSON.stringify(row));
+        //     }
+        //     data.id = JSON.stringify(result)
           
-            console.log(`this is = ${result}`);
+        //     console.log(`this is = ${result}`);
            
-        });
-        request({
-            method: 'POST',
-            uri: 'https://notify-api.line.me/api/notify',
-            header: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            auth: {
-                bearer: 'cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX', //token
-            },
-            form: {
-                message: `this is eventext=${data.id}`, //ข้อความที่จะส่ง
-            },
-        }, (err, httpResponse, body) => {
-            if (err) {
-                console.log(err)
-            } else {
-                console.log(body)
-            }
-        })
+        // });
+        // request({
+        //     method: 'POST',
+        //     uri: 'https://notify-api.line.me/api/notify',
+        //     header: {
+        //         'Content-Type': 'application/x-www-form-urlencoded',
+        //     },
+        //     auth: {
+        //         bearer: 'cEpq67bFPhAzhqYvfXDSVisVCTIoiROZS6q9VurykMX', //token
+        //     },
+        //     form: {
+        //         message: `this is eventext=${data.id}`, //ข้อความที่จะส่ง
+        //     },
+        // }, (err, httpResponse, body) => {
+        //     if (err) {
+        //         console.log(err)
+        //     } else {
+        //         console.log(body)
+        //     }
+        // })
 
         return client.replyMessage(event.replyToken, msg);
 
