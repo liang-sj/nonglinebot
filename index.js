@@ -1,12 +1,17 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
+const bodyParser = require('body-parser')
 const request = require('request')
 require('dotenv').config();
+let cors = require('cors')
 const app = express();
 const { clientDB } = require("./connect");
 // console.log(MSG.data1)
 //console.log(address.MSG);
-
+app.use(bodyParser.urlencoded({
+    extended: true
+  }))
+  app.use(cors())
 const data = {
     id: null,
     del: null
@@ -28,6 +33,47 @@ app.get("/data", (req, res) => {
     });
 });
 
+app.post("/delete", (req, res) => {
+    // req.header("Content-Type", "application/json");
+     // console.log('====================================');
+     // //console.log(`this value =${delparams}`);
+     // console.log('====================================');
+     clientDB.query(`DELETE FROM question WHERE id in (${req.body.data})`, (err, resDB) => {
+       if (err) throw err;
+       else{
+           if (resDB.rowCount) {
+               res.send(`Delete success`);
+           }
+           else{
+                   res.send(JSON.stringify(resDB))
+           }
+       }
+       
+      
+     });
+     // console.log(req.body);
+     
+     // res.send(req.body)
+     
+     
+   });
+   app.delete('/del', (req, res) => {
+     console.log(req.query.id);
+     clientDB.query(`DELETE FROM question WHERE id=(${req.query.id})`, (err, resDB) => {
+       if (err) throw err;
+       else{
+           if (resDB.rowCount) {
+               res.send(`Delete success`);
+           }
+           else{
+                   res.send(JSON.stringify(resDB))
+           }
+       }
+       
+      
+     });
+   })
+   
 
 
 
